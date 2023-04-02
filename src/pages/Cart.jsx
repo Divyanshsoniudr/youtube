@@ -1,13 +1,18 @@
 import styled from "styled-components"
-
+import Announcement from "../components/Announcement";
+import Footer from "../components/Footer";
 const Container = styled.div`
 
 `;
 
-
 const Cart = () => {
   return (
-    <div>Cart</div>
+    <Container>
+        <Navbar/>
+        <Announcement/>
+        Cart
+        <Footer/>
+    </Container>
   )
 }
 
