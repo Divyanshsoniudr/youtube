@@ -1,0 +1,116 @@
+import styled from "styled-components"
+import ArrowBackIosNewOutlinedIcon from '@mui/icons-material/ArrowBackIosNewOutlined';
+import ArrowForwardIosOutlinedIcon from '@mui/icons-material/ArrowForwardIosOutlined';
+import { useState } from "react";
+import { sliderItems } from "../data";
+const Container = styled.div`
+    width:100%;
+    height : 100vh;
+    display:flex;
+    position:relative;
+    overflow: hidden;
+`;
+
+const Arrow = styled.div`
+    width:50px;
+    height:50px;
+    background-color: #fff7f7;
+    border-readius : 50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    position:absolute;
+    top: 0;
+    botton: 0;
+    left: ${props=> props.direction ==="left"&& "10px " }
+    right: ${props=> props.direction ==="right"&& "10px " }
+    margin:auto; 
+    cursor: pointer;
+    opacity: 0.5;
+    z-index:2;
+`;
+
+const Wrapper = styled.div`
+    height:100%;
+    display:flex;
+    transition: all 1.5 ease;
+    transform: translateX(${props=>props.slideIndex * -100}vw);
+`;
+
+const Slide = styled.div`
+    width:100vw;
+    height:100vh;
+    display:flex;
+    align-items:center;
+    background-color: ${props=>props.bg};
+`;
+const ImageContainer = styled.div`
+    flex:1;
+    padding: 50px;
+`;
+const Image= style.img`
+    height: 80%;
+`;
+const InfoContainer  = styled.div`
+    flex:1;
+`;
+
+const Title = styled.h1`
+    font-size: 50px;
+`;
+const Description = styled.p`
+    margin: 50px 0px;
+    font-size :20px;
+    font-weight: 500;
+    letter-spacing:3px;
+`;
+const Button = styled.button`
+    padding: 10px;
+    font-size:20px;
+    background-color:transparent;
+    cursor: pointer;
+`;
+
+const Slider = () => {
+    const [slideIndex, setSlideIndex] = useState(0)
+        const handleClick = (direction) =>{
+            if(direction ==="left"){
+                setSlideIndex (slideIndex > 0 ? slideIndex - 1: 2)
+            } else {
+
+                setSlideIndex(slideIndez < 2 ? slideIndex +1 : 0)
+            }
+        }
+    return(
+        <Container>
+            <Arrow direction= "left" onClick= {()=>handleClick("left")} >
+                <ArrowBackIosNewOutlinedIcon/>
+            </Arrow>
+            <Wrapper slideIndex = {slideIndex}>
+                {sliderItems.map((items)=>(
+                    <Slide bg= {item.bg} key={item.id}>
+                    <ImageContainer>
+                        <Image src= {items.img } />
+                    </ImageContainer>
+
+                    <InfoContainer>
+                        <Title>{item.title}</Title>
+                        <Description>
+                            {item.description}
+                        </Description>
+                        <Button>SHOP NOW</Button>
+                    </InfoContainer>
+                    </Slide>
+                ))}
+            </Wrapper>
+            
+            <Arrow direction= "right" onClick= {()=>handleClick("right")}>
+                <ArrowForwardIosOutlinedIcon/>
+            </Arrow>  
+        </Container>
+    ) 
+
+
+}
+
+export default Slider
